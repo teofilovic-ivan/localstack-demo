@@ -1,9 +1,9 @@
 name: actions
 on: [workflow-dispatch]
 jobs:
-	deploy:
-		runs-on: ubuntu-latest
-		steps:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
 			- uses: actions/checkout@v3 #not sure why
 			- uses: actions/setup-node@v3
 			  	with: 
