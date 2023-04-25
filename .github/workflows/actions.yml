@@ -21,6 +21,7 @@ jobs:
           localstack start -d
           serverless deploy --stage local
           awslocal s3 ls s3://archive-bucket
+          awslocal apigateway get-rest-apis | jq -r '.items[] | select(.name="local-localstack-demo") | .id'
           
 
 
