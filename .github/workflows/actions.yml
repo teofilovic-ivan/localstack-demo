@@ -14,6 +14,9 @@ jobs:
       - run: |
           npm install -g serverless
           python3 -m pip install localstack
+          python3 -m pip install awscli-local[ver1]
+          localstack start -d
+          serverless deploy --stage local
           
 
 
