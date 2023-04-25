@@ -21,8 +21,12 @@ jobs:
           localstack start -d
           serverless deploy --stage local
           awslocal s3 ls s3://archive-bucket
-          awslocal apigateway get-rest-apis | jq -r '.items[] | select(.name="local-localstack-demo") | .id'
-          
+          requestID=$$(awslocal apigateway get-rest-apis | jq -r '.items[] | select(.name="local-localstack-demo") | .id')
+          for i in 1 2 3 4 5 6 7 8 9 10; 
+            do echo "Polling for processing result to appear in s3://archive-bucket/..."; 
+            awslocal s3 ls s3://archive-bucket/ | grep $$requestID && exit; 
+            sleep 3; 
+          done
 
 
 
