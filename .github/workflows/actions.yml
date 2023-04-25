@@ -27,6 +27,7 @@ jobs:
             awslocal s3 ls s3://archive-bucket/ | grep $requestID && exit; 
             sleep 3; 
           done
+          awslocal s3 ls s3://archive-bucket/
 
 
 
