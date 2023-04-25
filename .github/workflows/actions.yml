@@ -1,22 +1,23 @@
 name: actions
-on: workflow-dispatch
-jobs:
-	deploy:
-		runs-on: ubuntu-latest
-		steps:
-			- uses: actions/checkout@v3 #not sure why
-			- uses: actions/setup-node@v3
-			  with: 
-				node-version: '14'
-			- uses: actions/setup-python@v4
-			  with:
-    		        	python-version: '3.10' 
-			- run: |
-				npm install -g serverless
-				python3 -m pip install localstack
-				python3 -m pip install awscli-local[ver1]
-				localstack start -d
-				serverless deploy --stage local
+on: 
+	workflow-dispatch:
+		jobs:
+			deploy:
+				runs-on: ubuntu-latest
+				steps:
+					- uses: actions/checkout@v3 #not sure why
+					- uses: actions/setup-node@v3
+					  with: 
+						node-version: '14'
+					- uses: actions/setup-python@v4
+					  with:
+						python-version: '3.10' 
+					- run: |
+						npm install -g serverless
+						python3 -m pip install localstack
+						python3 -m pip install awscli-local[ver1]
+						localstack start -d
+						serverless deploy --stage local
 				
 
 
