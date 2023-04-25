@@ -1,6 +1,5 @@
 name: actions
-on: 
-	workflow-dispatch:
+on: [workflow-dispatch]
 		jobs:
 			deploy:
 				runs-on: ubuntu-latest
