@@ -13,6 +13,7 @@ jobs:
           python3 -m pip install awscli-local[ver1]
           localstack start -d
           awslocal apigateway create-rest-api --name 'Demo'
+          awslocal apigateway get-rest-apis
           apiID=$(awslocal apigateway get-rest-apis | jq '.items[0] | .id')
           echo $apiID
           awslocal apigateway get-resources --rest-api-id $apiID
