@@ -1,0 +1,37 @@
+name: integration
+on: [workflow_dispatch]
+jobs:
+  install_localstack:
+    runs_on: ubuntu_latest
+    steps: 
+      - uses: actions/setup-python@v4
+        with: 
+          python-version: '3.10'
+      - run: |
+          python3 -m pip install localstack
+          python3 -m pip install awscli-local[ver1]
+          localstack start -d
+      - run: |
+          awslocal iam create-role --role-name lambdas --assume-role-policy-document file://roles.json
+          awslocal iam create-role --role-name state-machines --assume-role-policy-document file://state_machine.json
+          awslocal iam create-role --role-name apiRole --assume-role-policy-document file://api_role.json
+      - run: |
+          awslocal dynamodb create-table --cli-input-json file://table.json
+          awslocal sqs create-queue --queue-name requestQueue
+          awslocal s3api create-bucket --bucket archive-bucket
+          awslocal stepfunctions create-state-machine --name processingStateMachine --role-arn arn:aws:iam::000000000000:role/state-machines --cli-input-json file://state.json
+      - run: |
+          awslocal lambda create-function --function-name app --handler app.handleRequest --runtime nodejs14.x --zip-file fileb://app.zip --role arn:aws:iam::000000000000:role/lambdas
+          awslocal lambda create-function --function-name worker --handler worker.triggerProcessing --runtime ruby2.7 --zip-file fileb://worker.zip --role arn:aws:iam::000000000000:role/lambdas --environment "Variables={STATE_MACHINE_ARN=arn:aws:states:us-east-1:000000000000:stateMachine:processingStateMachine}"
+          awslocal lambda create-function --function-name processing --handler processing.handle_request --runtime python3.7 --zip-file fileb://processing.zip --role arn:aws:iam::000000000000:role/lambdas --timeout 20
+          awslocal lambda create-function --function-name archiving --handler processing.archive_result --runtime python3.7 --zip-file fileb://processing.zip --role arn:aws:iam::000000000000:role/lambdas --environment "Variables={ARCHIVE_BUCKET=archive-bucket}" --timeout 20
+      - run: |
+          awslocal lambda create-event-source-mapping --function-name worker --event-source-arn arn:aws:sqs:us-east-1:000000000000:requestQueue
+      - run: |
+          awslocal apigateway create-rest-api --name 'Demo'
+          awslocal apigateway get-resources --rest-api-id co6lqs0ndz
+          awslocal apigateway create-resource --rest-api-id co6lqs0ndz --parent-id 8mh50xfyki --path-part requests
+          awslocal apigateway put-method --rest-api-id co6lqs0ndz --resource-id <resource-id> --http-method POST --authorization-type "NONE"
+          awslocal apigateway put-integration --rest-api-id co6lqs0ndz --resource-id <resource-id> --http-method POST --type AWS_PROXY --integration-http-method POST --uri arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:000000000000:function:app/invocations --credentials arn:aws:iam::000000000000:role/apiRole
+          aws apigateway create-deployment --rest-api-id co6lqs0ndz --stage-name local
+          
