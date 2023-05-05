@@ -14,7 +14,7 @@ jobs:
           localstack start -d
           awslocal apigateway create-rest-api --name 'Demo'
           awslocal apigateway get-rest-apis
-          apiID=$(awslocal apigateway get-rest-apis | jq '.items[0] | .id')
+          apiID=$(awslocal apigateway get-rest-apis | jq -r '.items[] | select(.name="local-localstack-demo") | .id')
           echo $apiID
           awslocal apigateway get-resources --rest-api-id $apiID
           
