@@ -11,10 +11,10 @@ jobs:
       - run: |
           python3 -m pip install localstack
           python3 -m pip install awscli-local[ver1]
-          localstack start 
+          localstack start -d
       - run: |
-          ls
-          zip demo/lambdas/app.zip demo/lambdas/app.js
+          npm install 
+          zip -r demo/lambdas/app.zip demo/lambdas/app.js node_modules
           zip demo/lambdas/worker.zip demo/lambdas/worker.rb
           zip demo/lambdas/processing.zip demo/lambdas/processing.py
       - run: |
