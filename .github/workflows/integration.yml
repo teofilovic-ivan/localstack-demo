@@ -16,7 +16,7 @@ jobs:
       - run: |
           npm install 
           zip -r demo/lambdas/app.zip demo/lambdas/app.js node_modules
-          unzip -l app.zip
+          unzip -l demo/lambdas/app.zip
           zip demo/lambdas/worker.zip demo/lambdas/worker.rb
           zip demo/lambdas/processing.zip demo/lambdas/processing.py
       - run: |
