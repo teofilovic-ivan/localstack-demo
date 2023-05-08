@@ -1,0 +1,19 @@
+{
+  "Statement": [
+    {
+      "Effect": "Allow",
+	"Action": "dynamodb:*",
+	"Resource": "arn:aws:dynamodb:us-east-1:*:table/appRequests"
+    },
+    {
+      "Effect": "Allow",
+	"Action": "sqs:*",
+	"Resource": "arn:aws:sqs:us-east-1:*:requestQueue"
+    },
+    {
+      "Effect": "Allow",
+	"Action": "states:*",
+	"Resource": "arn:aws:states:us-east-1:*:stateMachine:*"
+    }
+  ]
+}
