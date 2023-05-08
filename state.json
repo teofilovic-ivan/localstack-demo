@@ -1,0 +1,5 @@
+{
+    "name": "processingStateMachine",
+    "roleArn": "arn:aws:iam::000000000000:role/state_machine_role",
+    "definition": "{ \"StartAt\": \"ProcessRequest\", \"States\": { \"ProcessRequest\": { \"Type\": \"Task\", \"Resource\": \"arn:aws:lambda:us-east-1:000000000000:function:processing\", \"Next\": \"ArchiveResult\" }, \"ArchiveResult\": {\"Type\": \"Task\", \"Resource\": \"arn:aws:lambda:us-east-1:000000000000:function:archiving\", \"End\": true}}}"
+}
