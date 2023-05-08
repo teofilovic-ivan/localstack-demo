@@ -16,5 +16,6 @@ jobs:
           awslocal apigateway get-rest-apis
           apiID=$(awslocal apigateway get-rest-apis | jq -r '.items[] | select(.name="local-localstack-demo") | .id')
           echo $apiID
-          awslocal apigateway get-resources --rest-api-id $apiID
-          
+          parentID=$(awslocal apigateway get-resources --rest-api-id $apiID | jq -r '.items[] | .id')
+          resourceID=$(awslocal apigateway create-resource --rest-api-id $apiID --parent-id $parentID --path-part requests | jq -r '.id')
+          awslocal apigateway put-method --rest-api-id $apiID --resource-id $resourceID --http-method POST --authorization-type "NONE"
