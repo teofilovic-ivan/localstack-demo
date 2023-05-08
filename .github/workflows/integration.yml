@@ -42,5 +42,4 @@ jobs:
           awslocal apigateway create-deployment --rest-api-id $apiID --stage-name local
           curl -s -d '{}' http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests
       - run:  |
-          awslocal sqs send-message --queue-url http://localhost:4566/000000000000/requestQueue --message-body 'message'
-          awslocal sqs receive-message --queue-url http://localhost:4566/000000000000/requestQueue
+          awslocal lambda invoke --function-name processing --payload {"requestID":"someid"} newfile
