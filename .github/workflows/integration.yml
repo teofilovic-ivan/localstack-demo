@@ -41,9 +41,9 @@ jobs:
           awslocal apigateway create-deployment --rest-api-id $apiID --stage-name local
           curl -s -d '{}' http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests
       - run:  |
-          aws lambda get-function --function-name app --query 'Configuration.[State, LastUpdateStatus]'
-          aws lambda get-function --function-name worker --query 'Configuration.[State, LastUpdateStatus]'
-          aws lambda get-function --function-name processing --query 'Configuration.[State, LastUpdateStatus]'
-          aws lambda get-function --function-name archiving --query 'Configuration.[State, LastUpdateStatus]'
+          awslocal lambda get-function --function-name app --query 'Configuration.[State, LastUpdateStatus]'
+          awslocal lambda get-function --function-name worker --query 'Configuration.[State, LastUpdateStatus]'
+          awslocal lambda get-function --function-name processing --query 'Configuration.[State, LastUpdateStatus]'
+          awslocal lambda get-function --function-name archiving --query 'Configuration.[State, LastUpdateStatus]'
 
           awslocal lambda invoke --function-name processing --payload {"requestID":"someid"} newfile
