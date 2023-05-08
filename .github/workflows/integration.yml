@@ -4,6 +4,7 @@ jobs:
   install_localstack:
     runs-on: ubuntu-latest
     steps: 
+      - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with: 
           python-version: '3.10'
@@ -12,8 +13,6 @@ jobs:
           python3 -m pip install awscli-local[ver1]
           localstack start -d
       - run: |
-          pwd
-          ls
-          awslocal iam create-role --role-name lambdas --assume-role-policy-document file://${{ github.workspace }}/roles.json
-          awslocal iam create-role --role-name state-machines --assume-role-policy-document file://${{ github.workspace }}/state_machine.json
-          awslocal iam create-role --role-name apiRole --assume-role-policy-document file://${{ github.workspace }}/api_role.json
+          awslocal iam create-role --role-name lambdas --assume-role-policy-document file://roles.json
+          awslocal iam create-role --role-name state-machines --assume-role-policy-document file://state_machine.json
+          awslocal iam create-role --role-name apiRole --assume-role-policy-document file://api_role.json
