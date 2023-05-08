@@ -2,7 +2,7 @@ name: integration
 on: [workflow_dispatch]
 jobs:
   install_localstack:
-    runs-on: ubuntu_latest
+    runs-on: ubuntu-latest
     steps: 
       - uses: actions/setup-python@v4
         with: 
