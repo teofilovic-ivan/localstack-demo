@@ -13,6 +13,7 @@ jobs:
           python3 -m pip install awscli-local[ver1]
           localstack start -d
       - run: |
+          ls
           zip /demo/lambdas/app.zip /demo/lambdas/app.js
           zip /demo/lambdas/worker.zip /demo/lambdas/worker.rb
           zip /demo/labmdas/processing.zip /demo/lambdas/processing.py
