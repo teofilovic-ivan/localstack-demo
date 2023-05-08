@@ -13,6 +13,20 @@ jobs:
           python3 -m pip install awscli-local[ver1]
           localstack start -d
       - run: |
+          zip /demo/lambdas/app.zip /demo/lambdas/app.js
+          zip /demo/lambdas/worker.zip /demo/lambdas/worker.rb
+          zip /demo/labmdas/processing.zip /demo/lambdas/processing.py
+      - run: |
           awslocal iam create-role --role-name lambdas --assume-role-policy-document file://roles.json
           awslocal iam create-role --role-name state-machines --assume-role-policy-document file://state_machine.json
           awslocal iam create-role --role-name apiRole --assume-role-policy-document file://api_role.json
+      - run: |
+          awslocal dynamodb create-table --cli-input-json file://table.json
+          awslocal sqs create-queue --queue-name requestQueue
+          awslocal s3api create-bucket --bucket archive-bucket
+          awslocal stepfunctions create-state-machine --name processingStateMachine --role-arn arn:aws:iam::000000000000:role/state-machines --cli-input-json file://state.json
+      - run: |
+          awslocal lambda create-function --function-name app --handler app.handleRequest --runtime nodejs14.x --zip-file fileb://demo/lambdas/app.zip --role arn:aws:iam::000000000000:role/lambdas
+          awslocal lambda create-function --function-name worker --handler worker.triggerProcessing --runtime ruby2.7 --zip-file fileb://demo/lambdas/worker.zip --role arn:aws:iam::000000000000:role/lambdas --environment "Variables={STATE_MACHINE_ARN=arn:aws:states:us-east-1:000000000000:stateMachine:processingStateMachine}"
+          awslocal lambda create-function --function-name processing --handler processing.handle_request --runtime python3.7 --zip-file fileb://demo/lambdas/processing.zip --role arn:aws:iam::000000000000:role/lambdas --timeout 20
+          awslocal lambda create-function --function-name archiving --handler processing.archive_result --runtime python3.7 --zip-file fileb://demo/lambdas/processing.zip --role arn:aws:iam::000000000000:role/lambdas --environment "Variables={ARCHIVE_BUCKET=archive-bucket}" --timeout 20
