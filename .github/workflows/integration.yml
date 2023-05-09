@@ -50,5 +50,4 @@ jobs:
           awslocal lambda get-function --function-name worker --query 'Configuration.[State, LastUpdateStatus]'
           awslocal lambda get-function --function-name processing --query 'Configuration.[State, LastUpdateStatus]'
           awslocal lambda get-function --function-name archiving --query 'Configuration.[State, LastUpdateStatus]'
-          awslocal lambda invoke --function-name archiving --payload '{"requestID":"someID"}' newfile
-          cat newfile
+          curl -s -d '{}' http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests
