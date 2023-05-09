@@ -16,9 +16,11 @@ jobs:
           python3 -m pip install awscli-local[ver1]
           localstack start -d
           npm install 
-          zip -r demo/lambdas/app.zip demo/lambdas/app.js node_modules
-          zip demo/lambdas/worker.zip demo/lambdas/worker.rb
-          zip demo/lambdas/processing.zip demo/lambdas/processing.py
+          cd demo/lambdas
+          zip -r app.zip app.js ../../node_modules
+          zip worker.zip worker.rb
+          zip processing.zip processing.py
+          cd ../..
           awslocal iam create-role --role-name lambdas --assume-role-policy-document file://roles.json
           awslocal iam create-role --role-name state-machines --assume-role-policy-document file://state_machine.json
           awslocal iam create-role --role-name apiRole --assume-role-policy-document file://api_role.json
