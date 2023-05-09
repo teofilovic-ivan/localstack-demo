@@ -51,3 +51,4 @@ jobs:
           awslocal lambda get-function --function-name processing --query 'Configuration.[State, LastUpdateStatus]'
           awslocal lambda get-function --function-name archiving --query 'Configuration.[State, LastUpdateStatus]'
           curl -s -d '{}' http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests
+          awslocal dynamodb scan --table-name appRequests
