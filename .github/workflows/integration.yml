@@ -51,4 +51,5 @@ jobs:
           #done
           #sleep 40s
           #awslocal dynamodb scan --table-name appRequests
+          chmod 755 test_script.sh
           ./test_script.sh
