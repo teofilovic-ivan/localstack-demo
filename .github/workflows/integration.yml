@@ -42,12 +42,13 @@ jobs:
           awslocal apigateway put-integration --rest-api-id $apiID --resource-id $resourceID --http-method POST --type AWS_PROXY --integration-http-method POST --uri arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:000000000000:function:app/invocations --credentials arn:aws:iam::000000000000:role/apiRole
           awslocal apigateway create-deployment --rest-api-id $apiID --stage-name local
           sleep 40s
-          curl -s -d '{}' http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests
+          #curl -s -d '{}' http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests
           #for i in 1 2 3 4 5 6 7 8 9 10; 
           #do 
           #  echo "Polling for processing result to appear in s3://archive-bucket/..."; 
           #  awslocal s3 ls s3://archive-bucket/ | grep $$requestID && exit; 
           #  sleep 3; 
           #done
-          sleep 40s
-          awslocal dynamodb scan --table-name appRequests
+          #sleep 40s
+          #awslocal dynamodb scan --table-name appRequests
+          ./test_script.sh
