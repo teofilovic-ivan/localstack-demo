@@ -49,6 +49,7 @@ jobs:
           awslocal apigateway create-deployment --rest-api-id $apiID --stage-name local
       - run: |
           echo $apiID
+          awslocal apigateway get-rest-apis
           sleep 40s
           chmod 755 test_script.sh
           ./test_script.sh
