@@ -49,7 +49,7 @@ jobs:
           #  awslocal s3 ls s3://archive-bucket/ | grep $$requestID && exit; 
           #  sleep 3; 
           #done
-          #sleep 40s
+          sleep 40s
           #awslocal dynamodb scan --table-name appRequests
           chmod 755 test_script.sh
           ./test_script.sh
