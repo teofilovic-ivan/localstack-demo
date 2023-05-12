@@ -22,4 +22,29 @@ jobs:
         run: |
           chmod 755 scripts/install_localstack.sh
           scripts/install_localstack.sh
+      - 
+        name: Zip functions
+        run: |
+          chmod 755 scripts/zip_functions.sh
+          scripts/zip_functions.sh
+      -
+        name: Create roles
+        run: |
+          chmod 755 scripts/create_roles.sh
+          scripts/create_roles.sh
+      -
+        name: Create resources
+        run: |
+          chmod 755 scripts/create_resources.sh
+          scripts/create_resources.sh
+      -
+        name: Create functions
+        run: |
+          chmod 755 scripts/create_functions.sh
+          scripts/create_functions.sh
+      - 
+        name: Create API
+        run: |
+          chmod 755 scripts/create_api.sh
+          scripts/create_api.sh
           
