@@ -50,7 +50,8 @@ jobs:
       -
         name: Test app
         run: |
-          echo "$apiID"
+          echo "${{ env.apiID }}"
+          echo $apiID
           chmod 755 scripts/test.sh
           scripts/test.sh
 
