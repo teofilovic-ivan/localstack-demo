@@ -8,3 +8,4 @@ resourceID=$(awslocal apigateway create-resource --rest-api-id $apiID --parent-i
 awslocal apigateway put-method --rest-api-id $apiID --resource-id $resourceID --http-method POST --authorization-type "NONE"
 awslocal apigateway put-integration --rest-api-id $apiID --resource-id $resourceID --http-method POST --type AWS_PROXY --integration-http-method POST --uri arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:000000000000:function:app/invocations --credentials arn:aws:iam::000000000000:role/apiRole
 awslocal apigateway create-deployment --rest-api-id $apiID --stage-name local
+echo "apiID=$apiID" >> "$GITHUB_ENV"
