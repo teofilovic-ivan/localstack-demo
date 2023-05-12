@@ -47,8 +47,6 @@ jobs:
         run: |
           chmod 755 scripts/create_api.sh
           scripts/create_api.sh
-          echo "apiID=$apiID" >> "$GITHUB_ENV"
-          cat $GITHUB_ENV
       -
         name: Test app
         run: |
