@@ -47,10 +47,11 @@ jobs:
         run: |
           chmod 755 scripts/create_api.sh
           scripts/create_api.sh
-          echo "::set-env name=apiID::$apiID"
+          echo "apiID=$apiID" >> "$GITHUB_ENV"
       -
         name: Test app
         run: |
+          echo "${{ env.apiID }}"
           chmod 755 scripts/test.sh
           scripts/test.sh
 
