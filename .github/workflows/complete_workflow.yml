@@ -47,7 +47,7 @@ jobs:
         run: |
           chmod 755 scripts/create_api.sh
           scripts/create_api.sh
-          ::set-env name=apiID::$apiID
+          echo "::set-env name=apiID::$apiID"
       -
         name: Test app
         run: |
