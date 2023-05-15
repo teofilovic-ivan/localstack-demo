@@ -6,12 +6,6 @@ The sample app illustrates a typical Web application scenario with asynchronous 
 
 <img src="demo/web/architecture.png" style="width: 600px" />
 
-## Prerequisites
-
-* LocalStack
-* Docker
-* Node.js / `yarn`
-
 ## License
 
 This code is available under the Apache 2.0 license.
