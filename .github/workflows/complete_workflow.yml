@@ -1,7 +1,7 @@
 name: complete_workflow
 on: [workflow_dispatch]
 jobs:
-  install_localstack:
+  localstack_integration_test:
     runs-on: ubuntu-latest
     steps: 
       - 
