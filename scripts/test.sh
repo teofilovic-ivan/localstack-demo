@@ -6,4 +6,8 @@ do
     awslocal s3 ls s3://archive-bucket/ | grep $requestID && break; 
     sleep 5; 
 done
-awslocal dynamodb scan --table-name appRequests --select "COUNT" | jq -r .Count
+count=$(awslocal dynamodb scan --table-name appRequests --select "COUNT" | jq -r .Count)
+if [[ $count -ne 3 ]]
+then 
+    exit 1
+fi
