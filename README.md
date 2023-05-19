@@ -8,7 +8,7 @@ The sample app illustrates a typical Web application scenario with asynchronous 
 
 ## Usage
 
-To test the application go to Actions, select complete_workflow from a list of workflows and click Run workflow. Once the workflow is finished request should appear in the s3 bucket in the Test app step. Also, three different items per request should be present in DynamoDB (one for each request status)
+To test the application go to Actions, select complete_workflow from a list of workflows and click Run workflow. Once the workflow is finished request should appear in the s3 bucket in the Test app step. Also, test.sh script tests if three different items per request are present in DynamoDB (one for each request status). If that is not the case the workflow fails.
 
 ## License
 
