@@ -28,11 +28,11 @@ To test the application go to *Actions*, select *ci* from a list of workflows an
 
 The output of the test.sh script should be similar to the picture below:
 
-<img src="demo/web/architecture.png" style="width: 600px" />
+<img src="assets/images/Polling.png" style="width: 600px" />
 
 After running the `awslocal dynamodb scan --table-name appRequests` you should get the output similar to:
 
-<img src="demo/web/architecture.png" style="width: 600px" />
+<img src="assets/images/items.png" style="width: 600px" />
 
 
 
