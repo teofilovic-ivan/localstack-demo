@@ -23,3 +23,11 @@ The test.sh script in the scripts folder performs an integration test by sending
 ## Usage
 
 To test the application go to *Actions*, select *ci* from a list of workflows and click *Run workflow*. Once the workflow is finished request should appear in the s3 bucket in the Test app step. Also, test.sh script tests if three different items per request are present in DynamoDB (one for each request status). If that is not the case the workflow fails.
+
+## Example
+
+The output of the test.sh script should be similar to the picture below:
+
+<img src="demo/web/architecture.png" style="width: 600px" />
+
+
