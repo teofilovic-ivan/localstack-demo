@@ -6,7 +6,8 @@ The sample app illustrates a typical Web application scenario with asynchronous 
 
 <img src="demo/web/architecture.png" style="width: 600px" />
 
-The application consists of SQS, DynamoDB, S3 bucket, Step Functions and four Lamdba functions: application, request worker, processing and archiving. The typical workflow follows these steps:
+The application consists of SQS, DynamoDB, S3 bucket, Step Functions and four Lamdba functions: application, request worker, processing and archiving. 
+The typical workflow follows these steps:
 1. the user sends a POST request on *http://$apiID.execute-api.localhost.localstack.cloud:4566/local/requests*
 2. **Application Lambda** handles the request and sends it with the status queued to the **SQS Request Queue** and **DynamoDB table** 
 3. When the request is present in the **SQS Request Queue**, the **Worker Lambda** is invoked, which then initiates the execution of the **State Machine**
