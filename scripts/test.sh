@@ -11,3 +11,4 @@ if [[ $count -ne 3 ]]
 then 
     exit 1
 fi
+awslocal dynamodb scan --table-name appRequests
